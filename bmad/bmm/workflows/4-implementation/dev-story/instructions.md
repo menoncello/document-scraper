@@ -72,7 +72,47 @@ Proceeding with story file only. For better context, consider running `story-con
     <action if="incomplete task or subtask requirements ambiguous">ASK user to clarify or HALT</action>
   </step>
 
-  <step n="1.5" goal="Mark story in-progress" tag="sprint-status">
+  <step n="1.5" goal="Detect review continuation and extract review context">
+    <critical>Determine if this is a fresh start or continuation after code review</critical>
+
+    <action>Check if "Senior Developer Review (AI)" section exists in the story file</action>
+    <action>Check if "Review Follow-ups (AI)" subsection exists under Tasks/Subtasks</action>
+
+    <check if="Senior Developer Review section exists">
+      <action>Set review_continuation = true</action>
+      <action>Extract from "Senior Developer Review (AI)" section:
+        - Review outcome (Approve/Changes Requested/Blocked)
+        - Review date
+        - Total action items with checkboxes (count checked vs unchecked)
+        - Severity breakdown (High/Med/Low counts)
+      </action>
+      <action>Count unchecked [ ] review follow-up tasks in "Review Follow-ups (AI)" subsection</action>
+      <action>Store list of unchecked review items as {{pending_review_items}}</action>
+
+      <output>⏯️ **Resuming Story After Code Review** ({{review_date}})
+
+**Review Outcome:** {{review_outcome}}
+**Action Items:** {{unchecked_review_count}} remaining to address
+**Priorities:** {{high_count}} High, {{med_count}} Medium, {{low_count}} Low
+
+**Strategy:** Will prioritize review follow-up tasks (marked [AI-Review]) before continuing with regular tasks.
+      </output>
+    </check>
+
+    <check if="Senior Developer Review section does NOT exist">
+      <action>Set review_continuation = false</action>
+      <action>Set {{pending_review_items}} = empty</action>
+
+      <output>🚀 **Starting Fresh Implementation**
+
+Story: {{story_key}}
+Context file: {{context_available}}
+First incomplete task: {{first_task_description}}
+      </output>
+    </check>
+  </step>
+
+  <step n="1.6" goal="Mark story in-progress" tag="sprint-status">
     <action>Load the FULL file: {{output_folder}}/sprint-status.yaml</action>
     <action>Read all development_status entries to find {{story_key}}</action>
     <action>Get current status value for development_status[{{story_key}}]</action>
@@ -116,20 +156,74 @@ Expected ready-for-dev or in-progress. Continuing anyway...
     <action>Cover edge cases and error handling scenarios noted in the test plan or story notes</action>
   </step>
 
-  <step n="4" goal="Run validations and tests">
-    <action>Determine how to run tests for this repo (infer or use {{run_tests_command}} if provided)</action>
-    <action>Run all existing tests to ensure no regressions</action>
-    <action>Run the new tests to verify implementation correctness</action>
-    <action>Run linting and code quality checks if configured</action>
-    <action>Validate implementation meets ALL story acceptance criteria; if ACs include quantitative thresholds (e.g., test pass rate), ensure they are met before marking complete</action>
+  <step n="4" goal="Run quality gates and validations">
+    <critical>QUALITY VALIDATION IS MANDATORY - ALL substeps must pass with ZERO errors</critical>
+    <critical>NEVER use eslint-disable or @ts-ignore - fix the underlying code issues</critical>
+
+    <substep n="4.1" goal="TypeScript type checking">
+      <action>Run: bun run typecheck (or tsc --noEmit)</action>
+      <check>ZERO TypeScript errors required - no exceptions</check>
+      <critical>NEVER use @ts-ignore - fix the actual type issue</critical>
+    </substep>
+
+    <substep n="4.2" goal="ESLint validation">
+      <action>Run: bun run lint</action>
+      <check>ZERO ESLint errors required</check>
+      <critical>NEVER add eslint-disable comments - refactor code to satisfy the rule</critical>
+    </substep>
+
+    <substep n="4.3" goal="Code formatting validation">
+      <action>Run: bun run format:check</action>
+      <check>100% Prettier compliance required</check>
+    </substep>
+
+    <substep n="4.4" goal="Test execution">
+      <action>Run: bun test</action>
+      <check>100% test pass rate required - no failures allowed</check>
+      <action>Run all existing tests to ensure no regressions</action>
+      <action>Run the new tests to verify implementation correctness</action>
+    </substep>
+
+    <substep n="4.5" goal="Mutation testing validation">
+      <action>Run: bun run mutation</action>
+      <check>Stryker mutation score must meet 70%+ break threshold</check>
+      <action>If score below 70%, improve test coverage before proceeding</action>
+    </substep>
+
+    <action>Validate implementation meets ALL story acceptance criteria; if ACs include quantitative thresholds, ensure they are met before marking complete</action>
+    <action if="any quality gate fails">STOP and fix before continuing - no exceptions</action>
     <action if="regression tests fail">STOP and fix before continuing, consider how current changes made broke regression</action>
     <action if="new tests fail">STOP and fix before continuing</action>
   </step>
 
-  <step n="5" goal="Mark task complete and update story">
+  <step n="5" goal="Mark task complete, track review resolutions, and update story">
+    <critical>If task is a review follow-up, must mark BOTH the task checkbox AND the corresponding action item in the review section</critical>
+
+    <action>Check if completed task has [AI-Review] prefix (indicates review follow-up task)</action>
+
+    <check if="task is review follow-up">
+      <action>Extract review item details (severity, description, related AC/file)</action>
+      <action>Add to resolution tracking list: {{resolved_review_items}}</action>
+
+      <!-- Mark task in Review Follow-ups section -->
+      <action>Mark task checkbox [x] in "Tasks/Subtasks → Review Follow-ups (AI)" section</action>
+
+      <!-- CRITICAL: Also mark corresponding action item in review section -->
+      <action>Find matching action item in "Senior Developer Review (AI) → Action Items" section by matching description</action>
+      <action>Mark that action item checkbox [x] as resolved</action>
+
+      <action>Add to Dev Agent Record → Completion Notes: "✅ Resolved review finding [{{severity}}]: {{description}}"</action>
+    </check>
+
     <action>ONLY mark the task (and subtasks) checkbox with [x] if ALL tests pass and validation succeeds</action>
     <action>Update File List section with any new, modified, or deleted files (paths relative to repo root)</action>
     <action>Add completion notes to Dev Agent Record if significant changes were made (summarize intent, approach, and any follow-ups)</action>
+
+    <check if="review_continuation == true and {{resolved_review_items}} is not empty">
+      <action>Count total resolved review items in this session</action>
+      <action>Add Change Log entry: "Addressed code review findings - {{resolved_count}} items resolved (Date: {{date}})"</action>
+    </check>
+
     <action>Save the story file</action>
     <action>Determine if more incomplete tasks remain</action>
     <action if="more tasks remain"><goto step="2">Next task</goto></action>
@@ -188,7 +282,7 @@ Story is marked Ready for Review in file, but sprint-status.yaml may be out of s
       - Review the implemented story yourself and test the changes
       - Verify all acceptance criteria are met
       - Ensure deployment readiness if applicable
-      - Run `review-story` workflow for peer review
+      - Run `code-review` workflow for peer review
       - Check sprint-status.yaml to see project progress
     </action>
     <action>Remain flexible - allow user to choose their own path or ask for other assistance</action>

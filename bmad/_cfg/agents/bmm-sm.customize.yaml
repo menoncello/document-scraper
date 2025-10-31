@@ -1,42 +1,27 @@
-# Agent Customization
-# Customize any section below - all are optional
-# After editing: npx bmad-method build <agent-name>
-
-# Override agent name
-agent:
-  metadata:
-    name: ""
-
-# Replace entire persona (not merged)
-persona:
-  role: ""
-  identity: ""
-  communication_style: ""
-  principles: []
+# Agent Customization - Document Scrape Project
+# Personalized for quality-focused story templates
 
 # Add custom critical actions (appended after standard config loading)
-critical_actions: []
+critical_actions:
+  - name: template-quality
+    description: Ensure story templates demonstrate correct patterns and meet production quality
+    instruction: |
+      Story templates and code examples must demonstrate correct patterns and meet production quality standards:
+      - Proper TypeScript types and interfaces
+      - ESLint compliance (0 errors)
+      - Correct formatting and structure
+      - Bun runtime best practices
+      - Comprehensive error handling patterns
+      - Test examples that demonstrate quality gates
+
+      Templates guide developers - they must be copy-paste ready and exemplify best practices.
+      I validate template code before saving stories.
 
 # Add persistent memories for the agent
-memories: []
-# Example:
-# memories:
-#   - "User prefers detailed technical explanations"
-#   - "Current project uses React and TypeScript"
-
-# Add custom menu items (appended to base menu)
-# Don't include * prefix or help/exit - auto-injected
-menu: []
-# Example:
-# menu:
-#   - trigger: my-workflow
-#     workflow: "{project-root}/custom/my.yaml"
-#     description: My custom workflow
-
-# Add custom prompts (for action="#id" handlers)
-prompts: []
-# Example:
-# prompts:
-# - id: my-prompt
-#   content: |
-#     Prompt instructions here
+memories:
+  - "Document Scrape uses Bun runtime - story templates should reflect Bun patterns"
+  - "TypeScript strict mode is required - all template code must type-check"
+  - "Story templates should include proper error handling examples"
+  - "Test examples should demonstrate 100% pass rates and proper test structure"
+  - "Quality gates (TypeScript 0, ESLint 0, Tests 100%) should be referenced in stories"
+  - "Stryker mutation testing with 70%+ thresholds should be mentioned in relevant stories"

@@ -1,42 +1,30 @@
-# Agent Customization
-# Customize any section below - all are optional
-# After editing: npx bmad-method build <agent-name>
-
-# Override agent name
-agent:
-  metadata:
-    name: ""
-
-# Replace entire persona (not merged)
-persona:
-  role: ""
-  identity: ""
-  communication_style: ""
-  principles: []
+# Agent Customization - Document Scrape Project
+# Personalized for Bun Test and Stryker mutation testing
 
 # Add custom critical actions (appended after standard config loading)
-critical_actions: []
+critical_actions:
+  - name: test-quality-validation
+    description: Ensure generated test code meets quality gates and mutation testing standards
+    instruction: |
+      All test code I generate MUST meet these quality gates:
+      - TypeScript: Compile with 0 errors in strict mode
+      - ESLint: Pass with 0 errors (NEVER use eslint-disable comments)
+      - Formatting: Follow project Prettier conventions
+      - Test Runner: Use Bun Test API (describe, it, expect)
+      - Mutation Testing: Target 70%+ break threshold with Stryker
+
+      When generating test data and assertions:
+      - Use proper TypeScript types (no 'any', infer types correctly)
+      - Handle async/await correctly (no floating promises)
+      - Follow ESLint rules (no-unused-vars, prefer-const, etc.)
+      - Structure tests to kill mutants (boundary values, null checks, error paths)
+      - Use Bun-specific test patterns and utilities
 
 # Add persistent memories for the agent
-memories: []
-# Example:
-# memories:
-#   - "User prefers detailed technical explanations"
-#   - "Current project uses React and TypeScript"
-
-# Add custom menu items (appended to base menu)
-# Don't include * prefix or help/exit - auto-injected
-menu: []
-# Example:
-# menu:
-#   - trigger: my-workflow
-#     workflow: "{project-root}/custom/my.yaml"
-#     description: My custom workflow
-
-# Add custom prompts (for action="#id" handlers)
-prompts: []
-# Example:
-# prompts:
-# - id: my-prompt
-#   content: |
-#     Prompt instructions here
+memories:
+  - "This project uses Bun Test (describe, it, expect) and Stryker for mutation testing"
+  - "All generated test code must meet quality gates: TypeScript 0 errors, ESLint 0 errors, proper formatting"
+  - "Stryker thresholds: 70% break, 75% low, 90% high - tests should be designed to achieve these scores"
+  - "Bun Test patterns: use bun test runner, proper async/await handling, Bun-specific assertions"
+  - "Mutation testing focus: tests should kill mutants through boundary conditions, error paths, and edge cases"
+  - "No eslint-disable or @ts-ignore allowed in generated test code - fix underlying issues instead"

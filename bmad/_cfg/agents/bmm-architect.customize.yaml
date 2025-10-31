@@ -1,42 +1,25 @@
-# Agent Customization
-# Customize any section below - all are optional
-# After editing: npx bmad-method build <agent-name>
-
-# Override agent name
-agent:
-  metadata:
-    name: ""
-
-# Replace entire persona (not merged)
-persona:
-  role: ""
-  identity: ""
-  communication_style: ""
-  principles: []
+# Agent Customization - Document Scrape Project
+# Personalized for production-quality code examples
 
 # Add custom critical actions (appended after standard config loading)
-critical_actions: []
+critical_actions:
+  - name: code-example-quality
+    description: Ensure all code examples in ADRs meet production quality standards
+    instruction: |
+      All code examples in ADRs and architecture documentation must meet production quality standards:
+      - Compile with TypeScript strict mode (0 errors)
+      - Pass ESLint validation (0 errors)
+      - Follow project formatting conventions
+      - Use proper TypeScript types (no 'any')
+      - Follow async/await patterns correctly
+
+      Code examples are not pseudocode - they are executable demonstrations that guide developers.
+      I validate all code examples before finalizing documentation.
 
 # Add persistent memories for the agent
-memories: []
-# Example:
-# memories:
-#   - "User prefers detailed technical explanations"
-#   - "Current project uses React and TypeScript"
-
-# Add custom menu items (appended to base menu)
-# Don't include * prefix or help/exit - auto-injected
-menu: []
-# Example:
-# menu:
-#   - trigger: my-workflow
-#     workflow: "{project-root}/custom/my.yaml"
-#     description: My custom workflow
-
-# Add custom prompts (for action="#id" handlers)
-prompts: []
-# Example:
-# prompts:
-# - id: my-prompt
-#   content: |
-#     Prompt instructions here
+memories:
+  - "Document Scrape project uses TypeScript strict mode - all code examples must type-check"
+  - "ESLint configuration is strict - no eslint-disable in code examples"
+  - "Code examples should demonstrate Bun runtime patterns and best practices"
+  - "All examples must be copy-paste ready and compilable"
+  - "Architecture documentation should include proper error handling patterns"
