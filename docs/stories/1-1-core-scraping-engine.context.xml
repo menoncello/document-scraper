@@ -1,0 +1,213 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>1.1</storyId>
+    <title>Core Scraping Engine</title>
+    <status>ready-for-dev</status>
+    <generatedAt>2025-10-27</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/1-1-core-scraping-engine.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>developer building web scraping applications</asA>
+    <iWant>a core scraping engine with HTTP client, HTML parser, and configuration system</iWant>
+    <soThat>I can reliably extract data from websites with minimal dependencies and maximum performance</soThat>
+    <tasks>
+- Set up project structure and TypeScript configuration (AC: 5)
+  - Initialize Bun project with TypeScript
+  - Configure tsconfig.json for strict type checking
+  - Set up source directory structure (src/core/, src/types/, etc.)
+  - Configure ESLint with TypeScript support and quality rules
+  - Configure Stryker for mutation testing with 70% threshold
+  - Set up Husky git hooks for code quality
+- Implement HTTP client with retry logic and rate limiting (AC: 1, 6)
+  - Create HTTP client class using Bun's built-in fetch
+  - Add exponential backoff retry mechanism
+  - Implement rate limiting and request throttling
+  - Add comprehensive error handling for network failures
+- Build HTML parser using Cheerio for content extraction (AC: 2)
+  - Integrate Cheerio for jQuery-like HTML parsing
+  - Support CSS selectors and XPath expressions
+  - Add data extraction utilities and helpers
+- Create configuration management system (AC: 3)
+  - Implement YAML/JSON configuration file parsing
+  - Define configuration schema and validation
+  - Add default configuration values and merging logic
+- Implement data extraction pipeline with CSS selectors (AC: 4)
+  - Create extraction engine that applies selectors to HTML
+  - Support multiple data extraction patterns
+  - Add data transformation and normalization utilities
+- Add comprehensive error handling and logging (AC: 6)
+  - Implement structured logging system
+  - Add error recovery mechanisms
+  - Create debugging utilities for troubleshooting
+- Write unit tests for core scraping functionality (AC: 7)
+  - Test HTTP client with mock responses
+  - Test HTML parser with sample documents
+  - Test configuration parsing and validation
+  - Test data extraction pipeline
+- Write integration tests for end-to-end scraping scenarios (AC: 7)
+  - Test complete scraping workflows
+  - Test error handling in realistic scenarios
+  - Test configuration-driven scraping
+- Configure mutation testing with Stryker (AC: 7)
+  - Run initial mutation test to establish baseline
+  - Achieve minimum 70% mutation score threshold
+  - Fix any surviving mutants by improving test coverage</tasks>
+  </story>
+
+  <acceptanceCriteria>
+1. HTTP client can fetch web pages with proper error handling and retry logic
+2. HTML parser can extract data using CSS selectors and XPath
+3. Configuration system supports YAML/JSON files with scraping rules
+4. Data extraction pipeline can transform raw HTML into structured data
+5. Library provides clean TypeScript API for programmatic usage
+6. Error handling gracefully manages network failures and parsing errors
+7. Core functionality is fully tested with unit and integration tests</acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/epics.md</path>
+        <title>Epic Breakdown - Web Scraping Library Foundation</title>
+        <section>Phase 1: Core Foundation</section>
+        <snippet>Phase 1: Core Foundation (Story 1) - Project setup and TypeScript configuration, HTTP client implementation with retry logic, HTML parsing using Cheerio, Configuration management system, Basic data extraction pipeline</snippet>
+      </doc>
+      <doc>
+        <path>docs/tech-spec.md</path>
+        <title>Technical Specification</title>
+        <section>Source Tree Structure</section>
+        <snippet>Core modules: src/core/scraper.ts (Main scraping engine), src/core/parser.ts (HTML/XML parsing), src/core/extractor.ts (Data extraction logic), src/core/config.ts (Configuration management)</snippet>
+      </doc>
+      <doc>
+        <path>docs/tech-spec.md</path>
+        <title>Technical Specification</title>
+        <section>Technical Approach</section>
+        <snippet>Architecture Pattern: Modular library with clear separation between core scraping logic, CLI interface, and export functionality. Core Design Principles: Composable Design, Configuration-Driven, Async/Await Throughout, Error Resilience, Type Safety</snippet>
+      </doc>
+      <doc>
+        <path>docs/tech-spec.md</path>
+        <title>Technical Specification</title>
+        <section>Implementation Stack</section>
+        <snippet>Core Runtime: Bun v1.3.1+, TypeScript v5.9.3+. HTML Parsing: cheerio v1.1.2+. Testing & Quality: Bun's built-in test runner, eslint v9.38.0+, @stryker-mutator/core v9.2.0+</snippet>
+      </doc>
+      <doc>
+        <path>docs/tech-spec.md</path>
+        <title>Technical Specification</title>
+        <section>ESLint Configuration</section>
+        <snippet>ESLint with TypeScript support: @typescript-eslint/parser v8.46.2+, @typescript-eslint/eslint-plugin v8.46.2+. Rules: no-unused-vars, no-explicit-any, prefer-const, strict type checking</snippet>
+      </doc>
+      <doc>
+        <path>docs/tech-spec.md</path>
+        <title>Technical Specification</title>
+        <section>Stryker Configuration</section>
+        <snippet>Mutation testing with Bun test runner, 70% threshold, per-test coverage analysis. Reporters: progress, clear-text, html, dashboard</snippet>
+      </doc>
+      <doc>
+        <path>docs/product-brief.md</path>
+        <title>Product Brief</title>
+        <section>Core Features</section>
+        <snippet>CLI tool for easy installation, Bun-based library with clean API, Configuration file support (YAML/JSON), Data export in CSV and JSON formats, Support for static websites, Comprehensive error handling and retry mechanisms</snippet>
+      </doc>
+    </docs>
+    <code>
+      <!-- No existing code found - this is a greenfield project -->
+    </code>
+    <dependencies>
+      <ecosystem name="bun">
+        <package name="bun" version="1.3.1+" usage="Primary runtime for optimal performance"/>
+        <package name="typescript" version="5.9.3+" usage="Type safety and enhanced development experience"/>
+      </ecosystem>
+      <ecosystem name="npm">
+        <package name="cheerio" version="1.1.2+" usage="Server-side jQuery implementation for HTML parsing"/>
+        <package name="yaml" version="2.8.1+" usage="YAML configuration file parsing"/>
+        <package name="date-fns" version="4.1.0+" usage="Date manipulation utilities"/>
+        <package name="csv-writer" version="1.6.0+" usage="CSV generation and export"/>
+      </ecosystem>
+      <ecosystem name="testing">
+        <package name="@stryker-mutator/core" version="9.2.0+" usage="Mutation testing for code quality assurance"/>
+        <package name="eslint" version="9.38.0+" usage="Code linting and formatting"/>
+        <package name="@typescript-eslint/parser" version="8.46.2+" usage="TypeScript parser for ESLint"/>
+        <package name="@typescript-eslint/eslint-plugin" version="8.46.2+" usage="TypeScript-specific ESLint rules"/>
+        <package name="husky" version="9.1.7+" usage="Git hooks for code quality"/>
+      </ecosystem>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint type="runtime">Use Bun v1.3.1+ as primary runtime</constraint>
+    <constraint type="language">Implement full TypeScript with strict type checking</constraint>
+    <constraint type="patterns">Follow async/await patterns throughout</constraint>
+    <constraint type="error-handling">Include comprehensive error handling with retry logic</constraint>
+    <constraint type="formats">Support both YAML and JSON configuration formats</constraint>
+    <constraint type="testing">Maintain 90%+ test coverage for core modules</constraint>
+    <constraint type="quality">ESLint must pass with zero warnings (lint:check)</constraint>
+    <constraint type="mutation">Stryker mutation score threshold: minimum 70% to break, 75% low, 90% high</constraint>
+    <constraint type="structure">Follow tech-spec.md source tree structure exactly</constraint>
+  </constraints>
+
+  <interfaces>
+    <interface name="ScrapingConfig" kind="TypeScript Interface">
+      <signature>
+interface ScrapingConfig {
+  target: {
+    url: string;
+    selector?: string;
+    waitFor?: number;
+  };
+  extraction: {
+    fields: Record&lt;string, string&gt;;
+    multiple?: boolean;
+  };
+  output: {
+    format: 'json' | 'csv' | 'database';
+    filename?: string;
+    database?: {
+      type: 'sqlite' | 'postgresql' | 'mysql';
+      connection: string;
+      table: string;
+    };
+  };
+  behavior: {
+    retryAttempts: number;
+    retryDelay: number;
+    rateLimit: number;
+    userAgent?: string;
+    headers?: Record&lt;string, string&gt;;
+  };
+}</signature>
+      <path>docs/tech-spec.md#Configuration-System</path>
+    </interface>
+    <interface name="DocumentScraper" kind="TypeScript Class">
+      <signature>
+class DocumentScraper {
+  constructor(config: ScrapingConfig);
+  async scrape(): Promise&lt;ScrapingResult&gt;;
+  async scrapeMultiple(urls: string[]): Promise&lt;ScrapingResult[]&gt;;
+  setConfig(config: Partial&lt;ScrapingConfig&gt;): void;
+}</signature>
+      <path>docs/tech-spec.md#Core-Scraper-Interface</path>
+    </interface>
+  </interfaces>
+
+  <tests>
+    <standards>
+      Bun's built-in test runner for unit and integration testing. Minimum 90% test coverage for core modules. ESLint must pass with zero warnings. Stryker mutation testing with 70% threshold. Use fixtures for HTML testing and mock HTTP requests. Coverage analysis: perTest with Stryker.
+    </standards>
+    <locations>
+      <location>tests/unit/core/</location>
+      <location>tests/integration/scraping.test.ts</location>
+      <location>tests/fixtures/</location>
+    </locations>
+    <ideas>
+      <test ac="1">Test HTTP client retry logic with simulated network failures and timeout scenarios</test>
+      <test ac="2">Test HTML parser with various HTML structures including malformed content and edge cases</test>
+      <test ac="3">Test configuration parsing with valid/invalid YAML and JSON files, schema validation</test>
+      <test ac="4">Test data extraction with complex CSS selectors, nested elements, and XPath expressions</test>
+      <test ac="5">Test TypeScript API types and interfaces for proper type safety and IntelliSense support</test>
+      <test ac="6">Test error handling and logging scenarios including network timeouts, parsing errors, and configuration errors</test>
+      <test ac="7">Test all components individually (unit tests) and integrated end-to-end workflows</test>
+    </ideas>
+  </tests>
+</story-context>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce Test Site</title>
+    <meta name="description" content="Test e-commerce site for web scraping">
+</head>
+<body>
+    <header class="site-header">
+        <h1>Test Store</h1>
+        <nav class="main-navigation">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/products">Products</a></li>
+                <li><a href="/about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <section class="products-section">
+            <h2>Featured Products</h2>
+            <div class="products-grid">
+                <article class="product-card" data-id="1" data-category="electronics" data-price="299.99">
+                    <div class="product-image">
+                        <img src="https://example.com/images/laptop.jpg" alt="Laptop Computer" />
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Premium Laptop</h3>
+                        <p class="product-description">High-performance laptop for professionals</p>
+                        <div class="product-meta">
+                            <span class="price">$299.99</span>
+                            <span class="rating" data-rating="4.5">4.5 stars</span>
+                            <span class="stock" data-availability="in-stock">In Stock</span>
+                        </div>
+                        <div class="product-tags">
+                            <span class="tag">electronics</span>
+                            <span class="tag">computer</span>
+                            <span class="tag">professional</span>
+                        </div>
+                    </div>
+                    <button class="add-to-cart" data-product-id="1">Add to Cart</button>
+                </article>
+
+                <article class="product-card" data-id="2" data-category="books" data-price="19.99">
+                    <div class="product-image">
+                        <img src="https://example.com/images/book.jpg" alt="Programming Book" />
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Web Scraping Guide</h3>
+                        <p class="product-description">Complete guide to modern web scraping techniques</p>
+                        <div class="product-meta">
+                            <span class="price">$19.99</span>
+                            <span class="rating" data-rating="5.0">5 stars</span>
+                            <span class="stock" data-availability="in-stock">In Stock</span>
+                        </div>
+                        <div class="product-tags">
+                            <span class="tag">books</span>
+                            <span class="tag">programming</span>
+                            <span class="tag">tutorial</span>
+                        </div>
+                    </div>
+                    <button class="add-to-cart" data-product-id="2">Add to Cart</button>
+                </article>
+
+                <article class="product-card" data-id="3" data-category="electronics" data-price="149.99">
+                    <div class="product-image">
+                        <img src="https://example.com/images/headphones.jpg" alt="Wireless Headphones" />
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Wireless Headphones</h3>
+                        <p class="product-description">Noise-cancelling wireless headphones with premium sound</p>
+                        <div class="product-meta">
+                            <span class="price sale-price">$149.99</span>
+                            <span class="original-price">$199.99</span>
+                            <span class="rating" data-rating="4.2">4.2 stars</span>
+                            <span class="stock" data-availability="limited">Only 2 left</span>
+                        </div>
+                        <div class="product-tags">
+                            <span class="tag">electronics</span>
+                            <span class="tag">audio</span>
+                            <span class="tag">wireless</span>
+                            <span class="tag">sale</span>
+                        </div>
+                    </div>
+                    <button class="add-to-cart" data-product-id="3">Add to Cart</button>
+                </article>
+            </div>
+        </section>
+
+        <section class="reviews-section">
+            <h2>Customer Reviews</h2>
+            <div class="reviews-list">
+                <article class="review" data-product-id="2" data-rating="5">
+                    <div class="review-header">
+                        <span class="reviewer-name">John Developer</span>
+                        <span class="review-date">2024-01-15</span>
+                        <div class="review-rating">★★★★★</div>
+                    </div>
+                    <div class="review-content">
+                        <p>Excellent book! Very comprehensive and up-to-date coverage of web scraping techniques.</p>
+                    </div>
+                </article>
+
+                <article class="review" data-product-id="1" data-rating="4">
+                    <div class="review-header">
+                        <span class="reviewer-name">Sarah Tech</span>
+                        <span class="review-date">2024-01-10</span>
+                        <div class="review-rating">★★★★☆</div>
+                    </div>
+                    <div class="review-content">
+                        <p>Great laptop, fast performance. Battery could be better, but overall very satisfied.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>&copy; 2024 Test Store. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
+                <a href="/contact">Contact Us</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

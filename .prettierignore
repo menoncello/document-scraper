@@ -1,0 +1,54 @@
+# Dependencies
+node_modules/
+bun.lock
+
+# Build outputs
+dist/
+build/
+
+# Coverage reports
+coverage/
+.nyc_output/
+
+# Logs
+*.log
+logs/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test files that shouldn't be formatted
+tests/fixtures/
+tests/data/
+
+# Documentation files that have specific formatting
+*.md
+CHANGELOG.md
+
+# Configuration files that have specific formats
+*.yml
+*.yaml
+*.json
+*.toml
+
+# Git files
+.git/
+.gitignore
+
+# Other generated files
+*.min.js
+*.min.css
+*.bundle.js
+*.bundle.css

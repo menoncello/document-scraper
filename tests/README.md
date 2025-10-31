@@ -1,0 +1,211 @@
+# Test Suite Documentation
+
+**Framework**: Bun Test with TypeScript
+**Project**: Document Scrape Library
+**Author**: Eduardo Menoncello
+
+---
+
+## Overview
+
+Simple and direct test suite for Document Scrape library following YAGNI principle. Focus on unit and integration tests without over-engineering.
+
+## Setup Instructions
+
+### Prerequisites
+
+- Node.js 20.11.0+ (see `.nvmrc`)
+- Bun 1.3.1+ (recommended runtime)
+- TypeScript 5+
+
+### Installation
+
+1. **Install dependencies**:
+   ```bash
+   bun install
+   ```
+
+2. **Set up environment variables**:
+   ```bash
+   cp .env.example .env
+   # Edit .env with your test configuration
+   ```
+
+## Running Tests
+
+### Basic Commands
+
+```bash
+# Run all tests
+bun run test
+
+# Run tests in watch mode (development)
+bun run test:watch
+
+# Run tests with coverage
+bun run test:coverage
+
+# Run specific test file
+bun test tests/http-client.test.ts
+```
+
+### Advanced Usage
+
+```bash
+# Run specific test file
+bun test tests/http-client.test.ts
+
+# Run tests matching pattern
+bun test --grep "HTML parsing"
+
+# Run tests with coverage report
+bun run test:coverage
+```
+
+## Architecture Overview
+
+### Directory Structure
+
+```
+tests/
+├── support/                # Test utilities and helpers
+│   └── helpers.ts          # Test helper functions
+├── bun.test.ts             # Global test setup
+├── http-client.test.ts     # HTTP client tests
+├── html-parser.test.ts     # HTML parser tests
+└── README.md               # This documentation
+```
+
+### Test Helper Functions
+
+Use helper functions for creating test data:
+
+```typescript
+import { createTestHtml } from './support/helpers';
+
+test('should parse HTML', () => {
+  const html = createTestHtml({
+    title: 'Test Page',
+    content: 'Test content'
+  });
+  // ... test with generated HTML
+});
+```
+
+## Best Practices
+
+### Selector Strategy
+
+- **Always use `data-testid` attributes** for UI elements
+- Avoid CSS classes or XPath selectors
+- Example: `<button data-testid="submit-button">Submit</button>`
+
+### Test Isolation
+
+- Each test should be independent and runnable in isolation
+- Use fixtures for consistent setup across tests
+- Never share state between tests
+- Auto-cleanup is mandatory for all created resources
+
+### Network Testing
+
+- Use **network-first pattern**: intercept routes before navigation
+- Mock external APIs to ensure reliable tests
+- Example:
+  ```typescript
+  await page.route('**/api/data', route =>
+    route.fulfill({ status: 200, body: '{"result": "mock"}' })
+  );
+  await page.goto('/page');
+  ```
+
+### Error Handling
+
+- Tests should fail with clear, actionable error messages
+- Use explicit assertions rather than implicit expectations
+- Test both success and failure scenarios
+
+## Knowledge Base References
+
+This test framework applies patterns from the following knowledge fragments:
+
+- **fixture-architecture.md** - Test fixture patterns with auto-cleanup
+- **data-factories.md** - Faker-based factories with overrides
+- **network-first.md** - Route interception patterns
+- **test-quality.md** - Deterministic, isolated test design
+- **selector-resilience.md** - Robust selector strategies
+
+## CI/CD Integration
+
+### GitHub Actions Example
+
+```yaml
+- name: Run tests
+  run: |
+    bunx playwright install --with-deps
+    bun run test
+- name: Upload test results
+  uses: actions/upload-artifact@v3
+  if: failure()
+  with:
+    name: playwright-report
+    path: test-results/
+```
+
+### Environment Variables
+
+- `TEST_ENV`: Test environment (local/staging/production)
+- `BASE_URL`: Base URL for E2E tests
+- `TEST_SERVER_PORT`: Port for test server
+- `CI`: Set to true in CI environments
+
+## Debugging
+
+### Trace Viewer
+
+Playwright automatically captures traces on test failures. View them with:
+
+```bash
+bun run test:report
+```
+
+### Video and Screenshots
+
+Tests automatically capture screenshots and videos on failure. Find them in:
+- `test-results/` - Screenshots and videos
+- `test-results/html/` - HTML report
+
+### Common Debugging Commands
+
+```bash
+# Run with debug console
+bun run test:debug
+
+# Run specific test with debugging
+bun run test:debug tests/e2e/example.spec.ts
+
+# Generate code with Playwright Recorder
+bunx playwright codegen http://localhost:3000
+```
+
+## Contributing
+
+When adding new tests:
+
+1. **Follow existing patterns** - Use fixtures and factories
+2. **Add data-testid attributes** - Don't rely on CSS selectors
+3. **Write atomic tests** - One assertion per test when possible
+4. **Include cleanup** - Auto-cleanup all created resources
+5. **Document complex scenarios** - Add comments for non-obvious test logic
+
+## Support
+
+For questions about the test framework:
+
+- Refer to Playwright documentation: https://playwright.dev/
+- Check knowledge fragments in `bmad/bmm/testarch/knowledge/`
+- Ask in team standup or create an issue
+
+---
+
+**Generated by BMad Test Architect** - $(date)

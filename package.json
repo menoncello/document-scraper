@@ -1,0 +1,50 @@
+{
+  "name": "docs-scrape",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@faker-js/faker": "^10.1.0",
+    "@types/bun": "latest",
+    "eslint-import-resolver-typescript": "^4.4.4",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-jsdoc": "^61.1.9",
+    "eslint-plugin-sonarjs": "^3.0.5",
+    "eslint-plugin-unicorn": "^62.0.0",
+    "prettier": "^3.6.2"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "scripts": {
+    "build": "bun build index.ts --outdir dist --target node",
+    "dev": "bun --watch index.ts",
+    "test": "bun test",
+    "test:watch": "bun test --watch",
+    "test:coverage": "bun test --coverage",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --ext .ts,.tsx --fix",
+    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\" \"tests/**/*.{ts,tsx,js,jsx,json,css,md}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,css,md}\" \"tests/**/*.{ts,tsx,js,jsx,json,css,md}\"",
+    "format:staged": "prettier --write $(git diff --cached --name-only --diff-filter=ACM | grep -E '\\.(ts|tsx|js,jsx|json|css|md)$' | tr '\\n' ' ')",
+    "code-style": "bun run format && bun run lint:fix",
+    "typecheck": "tsc --noEmit",
+    "quality-check": "bun run format:check && bun run lint && bun run typecheck",
+    "quality-fix": "bun run format && bun run lint:fix && bun run typecheck",
+    "pre-commit": "bun run quality-fix && bun test",
+    "mutation": "stryker run",
+    "mutation:baseline": "stryker run --mutation-report json",
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "@stryker-mutator/core": "^9.2.0",
+    "@typescript-eslint/eslint-plugin": "^8.46.2",
+    "@typescript-eslint/parser": "^8.46.2",
+    "cheerio": "^1.1.2",
+    "csv-writer": "^1.6.0",
+    "date-fns": "^4.1.0",
+    "eslint": "^9.38.0",
+    "husky": "^9.1.7",
+    "yaml": "^2.8.1"
+  }
+}

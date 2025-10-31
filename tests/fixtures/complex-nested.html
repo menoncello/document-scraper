@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complex Nested Structure Test</title>
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="header-top">
+                <div class="logo">
+                    <img src="/logo.png" alt="Company Logo" />
+                    <span class="brand-name">TechCorp</span>
+                </div>
+                <nav class="main-nav">
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="#home" class="nav-link active">Home</a></li>
+                        <li class="nav-item"><a href="#products" class="nav-link">Products</a></li>
+                        <li class="nav-item dropdown">
+                            <a href="#services" class="nav-link dropdown-toggle">Services</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#consulting">Consulting</a></li>
+                                <li><a href="#development">Development</a></li>
+                                <li><a href="#support">Support</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <section class="hero-section">
+                <div class="hero-content">
+                    <h1 class="hero-title">Welcome to TechCorp</h1>
+                    <p class="hero-subtitle">Building the future with technology</p>
+                    <div class="hero-actions">
+                        <button class="btn btn-primary">Get Started</button>
+                        <button class="btn btn-secondary">Learn More</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="features-section">
+                <div class="container">
+                    <h2 class="section-title">Our Features</h2>
+                    <div class="features-grid">
+                        <div class="feature-card" data-feature="performance">
+                            <div class="feature-icon">
+                                <i class="icon-speed"></i>
+                            </div>
+                            <h3 class="feature-title">High Performance</h3>
+                            <p class="feature-description">Lightning-fast processing and response times</p>
+                            <ul class="feature-list">
+                                <li>Optimized algorithms</li>
+                                <li>Efficient resource usage</li>
+                                <li>Scalable architecture</li>
+                            </ul>
+                        </div>
+
+                        <div class="feature-card" data-feature="security">
+                            <div class="feature-icon">
+                                <i class="icon-shield"></i>
+                            </div>
+                            <h3 class="feature-title">Enterprise Security</h3>
+                            <p class="feature-description">Bank-level security for your data</p>
+                            <ul class="feature-list">
+                                <li>End-to-end encryption</li>
+                                <li>Regular security audits</li>
+                                <li>Compliance certified</li>
+                            </ul>
+                        </div>
+
+                        <div class="feature-card" data-feature="integration">
+                            <div class="feature-icon">
+                                <i class="icon-connect"></i>
+                            </div>
+                            <h3 class="feature-title">Easy Integration</h3>
+                            <p class="feature-description">Seamlessly integrate with your existing tools</p>
+                            <ul class="feature-list">
+                                <li>REST API support</li>
+                                <li>SDKs for major languages</li>
+                                <li>Webhook integration</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="testimonials-section">
+                <div class="container">
+                    <h2 class="section-title">What Our Clients Say</h2>
+                    <div class="testimonials-carousel">
+                        <article class="testimonial" data-client-id="1">
+                            <div class="testimonial-content">
+                                <blockquote class="testimonial-quote">
+                                    "TechCorp transformed our business operations. The results were immediate and impressive."
+                                </blockquote>
+                                <cite class="testimonial-author">
+                                    <span class="author-name">Jane Smith</span>
+                                    <span class="author-title">CEO, Innovation Inc</span>
+                                </cite>
+                            </div>
+                        </article>
+
+                        <article class="testimonial" data-client-id="2">
+                            <div class="testimonial-content">
+                                <blockquote class="testimonial-quote">
+                                    "The best investment we made this year. Outstanding service and support."
+                                </blockquote>
+                                <cite class="testimonial-author">
+                                    <span class="author-name">Michael Johnson</span>
+                                    <span class="author-title">CTO, Tech Solutions</span>
+                                </cite>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <section class="stats-section">
+                <div class="container">
+                    <div class="stats-grid">
+                        <div class="stat-item" data-stat="clients">
+                            <div class="stat-number">500+</div>
+                            <div class="stat-label">Happy Clients</div>
+                        </div>
+                        <div class="stat-item" data-stat="projects">
+                            <div class="stat-number">1200+</div>
+                            <div class="stat-label">Projects Completed</div>
+                        </div>
+                        <div class="stat-item" data-stat="years">
+                            <div class="stat-number">15+</div>
+                            <div class="stat-label">Years in Business</div>
+                        </div>
+                        <div class="stat-item" data-stat="team">
+                            <div class="stat-number">50+</div>
+                            <div class="stat-label">Expert Team Members</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="app-footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>TechCorp</h3>
+                    <p>Building innovative solutions for tomorrow's challenges.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" data-platform="twitter">Twitter</a>
+                        <a href="#" class="social-link" data-platform="linkedin">LinkedIn</a>
+                        <a href="#" class="social-link" data-platform="github">GitHub</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#portfolio">Portfolio</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <address class="contact-info">
+                        <div class="contact-item">
+                            <span class="contact-label">Email:</span>
+                            <a href="mailto:info@techcorp.com">info@techcorp.com</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Phone:</span>
+                            <a href="tel:+1234567890">+1 (234) 567-890</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Address:</span>
+                            <span>123 Tech Street, Silicon Valley, CA 94000</span>
+                        </div>
+                    </address>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 TechCorp. All rights reserved.</p>
+                <div class="legal-links">
+                    <a href="#privacy">Privacy Policy</a>
+                    <a href="#terms">Terms of Service</a>
+                    <a href="#cookies">Cookie Policy</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

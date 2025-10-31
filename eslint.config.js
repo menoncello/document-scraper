@@ -193,6 +193,13 @@ export default [
       yoda: 'error',
     },
   },
+  // Console handler - Allow console statements for logging functionality
+  {
+    files: ['**/console-handler.ts'],
+    rules: {
+      'no-console': 'off',
+    },
+  },
   // Test files - Relaxed rules
   {
     files: ['**/*.test.ts', '**/*.spec.ts', '**/tests/**/*.ts'],

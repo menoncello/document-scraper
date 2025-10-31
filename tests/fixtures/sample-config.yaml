@@ -1,0 +1,23 @@
+target:
+  url: https://example.com/products
+  selector: .product
+  waitFor: 2000
+extraction:
+  fields:
+    name: .product-name
+    price: .price
+    description: .description
+    rating: .rating
+    availability: .stock-status
+  multiple: true
+output:
+  format: csv
+  filename: products.csv
+behavior:
+  retryAttempts: 2
+  retryDelay: 1000
+  rateLimit: 10
+  userAgent: docs-scrape-yaml/1.0.0
+  headers:
+    Accept-Language: en-US,en;q=0.9
+    Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
