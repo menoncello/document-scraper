@@ -78,6 +78,7 @@ export const TestScenarios = {
   html: {
     basic: () => HtmlContentFactory.basic(),
     articles: (count = 3) => HtmlContentFactory.withArticles(count),
+    articleList: (count = 1) => HtmlContentFactory.withStructuredArticles(count),
     nested: () => HtmlContentFactory.withNestedStructure(),
     form: () => HtmlContentFactory.withForm(),
     dataAttributes: () => HtmlContentFactory.withDataAttributes(),

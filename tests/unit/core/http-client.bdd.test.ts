@@ -24,7 +24,7 @@ describe('HTTP Client - Basic Configuration', () => {
     expect(clientConfig.retryAttempts).toBe(config.retryAttempts);
     expect(clientConfig.retryDelay).toBe(config.retryDelay);
     expect(clientConfig.rateLimit).toBe(config.rateLimit);
-    expect(clientConfig.timeout).toBeUndefined(); // factory returns undefined for default
+    expect(clientConfig.timeout).toBe(config.timeout); // factory may return undefined or a number
     expect(clientConfig.userAgent).toBe(config.userAgent);
   });
 });

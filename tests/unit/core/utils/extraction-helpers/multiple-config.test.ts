@@ -46,15 +46,19 @@ describe('createBaseMultipleConfig', () => {
   });
 
   test('should preserve HTTP config in multiple config', () => {
-    // Given: HTTP config with custom settings
-    const httpConfig = HttpClientConfigFactory.withCustomHeaders({
-      'X-Multiple': 'true',
+    // Given: HTTP config with custom settings using static values for test reliability
+    const httpConfig = HttpClientConfigFactory.basic({
+      headers: {
+        Authorization: 'Bearer test-token',
+        'X-API-Key': 'test-key',
+        'X-Multiple': 'true',
+      },
     });
 
     // When: Creating base multiple config
     const config = createBaseMultipleConfig(httpConfig);
 
-    // Then: Should preserve HTTP config
+    // Then: Should preserve HTTP config exactly as provided
     expect(config.behavior.headers).toEqual({
       Authorization: 'Bearer test-token',
       'X-API-Key': 'test-key',

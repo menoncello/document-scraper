@@ -42,22 +42,29 @@ describe('createMinimalConfig - basic configuration', () => {
   });
 
   test('should create minimal configuration with custom HTTP config', () => {
-    // Given: A URL and HTTP config with custom headers
+    // Given: A URL and HTTP config with custom headers using static values for test reliability
     const url = 'https://api.example.com/data';
-    const httpConfig = HttpClientConfigFactory.withCustomHeaders({
-      'X-Custom-Header': 'test-value',
+    const httpConfig = HttpClientConfigFactory.basic({
+      headers: {
+        Authorization: 'Bearer test-token',
+        'X-API-Key': 'test-key',
+        'X-Custom-Header': 'test-value',
+      },
     });
 
     // When: Creating minimal config
     const config = createMinimalConfig(url, httpConfig);
 
-    // Then: Should preserve custom HTTP config
+    // Then: Should preserve custom HTTP config exactly as provided
     expect(config.target.url).toBe(url);
     expect(config.behavior.headers).toEqual({
       Authorization: 'Bearer test-token',
       'X-API-Key': 'test-key',
       'X-Custom-Header': 'test-value',
     });
+
+    // Ensure the httpConfig is passed through correctly
+    expect(config.behavior).toBe(httpConfig);
   });
 });
 

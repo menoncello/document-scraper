@@ -4,12 +4,7 @@ export default {
   testRunnerCommand: 'bun test',
 
   // Mutation testing configuration
-  mutate: [
-    'src/**/*.ts',
-    '!src/**/*.d.ts',
-    '!src/**/*.spec.ts',
-    '!src/**/*.test.ts'
-  ],
+  mutate: ['src/**/*.ts', '!src/**/*.d.ts', '!src/**/*.spec.ts', '!src/**/*.test.ts'],
 
   // Coverage analysis
   coverageAnalysis: 'perTest',
@@ -18,7 +13,7 @@ export default {
   thresholds: {
     high: 90,
     low: 75,
-    break: 70
+    break: 70,
   },
 
   // Reporters
@@ -31,12 +26,7 @@ export default {
   tempDirName: '.stryker-tmp',
 
   // Files to include in test run sandbox
-  files: [
-    'src/**/*.ts',
-    'tests/**/*.ts',
-    'package.json',
-    'tsconfig.json'
-  ],
+  files: ['src/**/*.ts', 'tests/**/*.ts', 'package.json', 'tsconfig.json'],
 
   // TypeScript configuration
   tsconfigFile: 'tsconfig.json',
@@ -52,10 +42,5 @@ export default {
   timeoutFactor: 1.5,
 
   // Ignore patterns
-  ignorePatterns: [
-    'node_modules',
-    'dist',
-    '.stryker-tmp',
-    'coverage'
-  ]
+  ignorePatterns: ['node_modules', 'dist', '.stryker-tmp', 'coverage'],
 };
