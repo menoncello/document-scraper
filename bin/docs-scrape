@@ -1,0 +1,4 @@
+#!/usr/bin/env bun
+
+// CLI entry point for docs-scrape
+import '../src/cli/index.js';

@@ -33,11 +33,11 @@ generated: 2025-10-27
 project: Document Scrape
 project_key: Document Scrape
 tracking_system: file-system
-story_location: {project-root}/docs/stories
+story_location: "{project-root}/docs/stories"
 
 development_status:
   # Epic 1: Web Scraping Library Foundation
   epic-1: backlog
-  1-1-core-scraping-engine: review
-  1-2-cli-interface-and-export: backlog
+  1-1-core-scraping-engine: done
+  1-2-cli-interface-and-export: review
   epic-1-retrospective: optional

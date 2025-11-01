@@ -1,0 +1,168 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>2</storyId>
+    <title>CLI Interface and Export</title>
+    <status>drafted</status>
+    <generatedAt>2025-10-31</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/1-2-cli-interface-and-export.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>developer working with web scraping</asA>
+    <iWant>a CLI interface with export capabilities for the scraping library</iWant>
+    <soThat>I can easily scrape websites and export data to JSON/CSV formats from the command line</soThat>
+    <tasks>- [ ] Set up CLI framework with Commander.js (AC: 1, 5)
+  - [ ] Initialize CLI project structure per tech-spec
+  - [ ] Configure Commander.js for command parsing
+  - [ ] Implement basic scrape command with URL parameter
+  - [ ] Add output format options (JSON, CSV)
+  - [ ] Add configuration file support flag
+- [ ] Implement CLI commands structure (AC: 1, 2)
+  - [ ] Create main CLI entry point at src/cli/index.ts
+  - [ ] Implement scrape command at src/cli/commands/scrape.ts
+  - [ ] Implement config command at src/cli/commands/config.ts
+  - [ ] Implement validate command at src/cli/commands/validate.ts
+  - [ ] Add CLI utility functions at src/cli/utils/
+- [ ] Create export functionality with JSON support (AC: 3)
+  - [ ] Implement JSON exporter at src/exporters/json.ts
+  - [ ] Add data transformation and formatting
+  - [ ] Create file output with proper naming
+  - [ ] Add validation for JSON output format
+- [ ] Implement CSV export functionality (AC: 4)
+  - [ ] Create CSV exporter at src/exporters/csv.ts
+  - [ ] Handle data serialization to CSV format
+  - [ ] Add proper header and row formatting
+  - [ ] Implement file writing and error handling
+- [ ] Add database integration interface (AC: 3, 4)
+  - [ ] Create database exporter at src/exporters/database.ts
+  - [ ] Support SQLite, PostgreSQL, MySQL connections
+  - [ ] Implement table creation and data insertion
+  - [ ] Add connection management and error handling
+- [ ] Implement error handling and user feedback (AC: 5)
+  - [ ] Add structured error messages for CLI users
+  - [ ] Implement progress indicators and status updates
+  - [ ] Create logging utilities for CLI operations
+  - [ ] Add graceful error recovery and exit codes
+- [ ] Create executable CLI script (AC: 1)
+  - [ ] Create bin/docs-scrape executable script
+  - [ ] Configure package.json for CLI distribution
+  - [ ] Add shebang and permissions setup
+  - [ ] Test CLI installation and execution
+- [ ] Write unit tests for CLI functionality (AC: 6)
+  - [ ] Test CLI command parsing and validation
+  - [ ] Test export functionality for JSON and CSV
+  - [ ] Test error handling and user feedback
+  - [ ] Test configuration file loading and validation
+- [ ] Write integration tests for end-to-end CLI scenarios (AC: 6)
+  - [ ] Test complete CLI scraping workflows
+  - [ ] Test configuration-driven CLI scraping
+  - [ ] Test export formats and file generation
+  - [ ] Test error scenarios in realistic contexts
+- [ ] Configure CLI testing patterns following existing standards (AC: 6)
+  - [ ] Apply Test ID Conventions (TC-CLI-001 format) to all CLI tests
+  - [ ] Implement Priority Classification (P0-P3 markers) for test prioritization
+  - [ ] Create fixture patterns for CLI testing scenarios
+  - [ ] Ensure test isolation and cleanup for CLI operations</tasks>
+  </story>
+
+  <acceptanceCriteria>1. CLI framework accepts scrape commands with URL and output parameters
+2. Configuration file support enables complex scraping scenarios via YAML/JSON
+3. JSON export functionality outputs structured data correctly
+4. CSV export functionality creates properly formatted spreadsheets
+5. Error handling provides clear user feedback for failures
+6. CLI tool is fully tested with comprehensive test coverage</acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc path="docs/tech-spec.md" title="Technical Specification" section="Source Tree Structure" snippet="CLI and exporters directory structure with command implementations and export functionality definitions"/>
+      <doc path="docs/tech-spec.md" title="Technical Specification" section="CLI Command Structure" snippet="Command-line interface commands for URL scraping, configuration files, and output formats"/>
+      <doc path="docs/tech-spec.md" title="Technical Specification" section="Implementation Stack" snippet="Commander.js, chalk, ora, inquirer for CLI development; csv-writer for export functionality"/>
+      <doc path="docs/epics.md" title="Epic Breakdown" section="Phase 2: CLI Interface and Export" snippet="CLI framework implementation, configuration file support, JSON/CSV export functionality, error handling and testing"/>
+      <doc path="docs/tech-spec.md" title="Technical Specification" section="Implementation Guide" snippet="Detailed CLI framework setup and export functionality implementation steps"/>
+      <doc path="docs/tech-spec.md" title="Technical Specification" section="Testing Approach" snippet="CLI testing strategy, export format validation, and integration testing requirements"/>
+    </docs>
+    <code>
+      <codeEntry path="src/index.ts" kind="entry-point" symbol="createScraper" lines="52-54" reason="Main function for creating scraper instances that CLI should use"/>
+      <codeEntry path="src/index.ts" kind="entry-point" symbol="createScraperFromConfig" lines="62-64" reason="Function for loading scraper from config files - essential for CLI config support"/>
+      <codeEntry path="src/index.ts" kind="entry-point" symbol="loadConfig" lines="83-85" reason="Config loading function that CLI commands should use for configuration files"/>
+      <codeEntry path="src/types/index.ts" kind="types" symbol="ScrapingConfig" lines="7-34" reason="Main configuration interface that CLI needs to accept and validate"/>
+      <codeEntry path="src/types/index.ts" kind="types" symbol="ScrapingResult" lines="45-56" reason="Result format that CLI export functionality should output"/>
+      <codeEntry path="src/types/index.ts" kind="types" symbol="ConfigValidationResult" lines="151-155" reason="Validation result type for CLI config validation commands"/>
+      <codeEntry path="src/core/scraper.ts" kind="service" symbol="DocumentScraper" reason="Main scraper class that CLI should instantiate and use"/>
+      <codeEntry path="src/core/config.ts" kind="service" symbol="ConfigManager" reason="Configuration management system for CLI config file support"/>
+      <codeEntry path="src/core/logger.ts" kind="service" symbol="Logger" reason="Logging system that CLI should extend for user feedback"/>
+    </code>
+    <dependencies>
+    <dependency ecosystem="Node.js">
+      <package name="commander" version="14.0.2+" purpose="CLI framework for command parsing"/>
+      <package name="chalk" version="5.6.2+" purpose="Terminal color formatting for CLI output"/>
+      <package name="ora" version="9.0.0+" purpose="Loading spinners and progress indicators"/>
+      <package name="inquirer" version="12.10.0+" purpose="Interactive command line prompts"/>
+      <package name="cheerio" version="1.1.2+" purpose="HTML parsing (existing dependency)"/>
+      <package name="csv-writer" version="1.6.0+" purpose="CSV generation and export"/>
+      <package name="yaml" version="2.8.1+" purpose="YAML configuration file parsing"/>
+      <package name="date-fns" version="4.1.0+" purpose="Date manipulation utilities"/>
+    </dependency>
+    <dependency ecosystem="Node.js Dev">
+      <package name="eslint" version="9.38.0+" purpose="Code linting and formatting"/>
+      <package name="@typescript-eslint/parser" version="8.46.2+" purpose="TypeScript parser for ESLint"/>
+      <package name="@typescript-eslint/eslint-plugin" version="8.46.2+" purpose="TypeScript-specific ESLint rules"/>
+      <package name="@stryker-mutator/core" version="9.2.0+" purpose="Mutation testing for code quality"/>
+      <package name="husky" version="9.1.7+" purpose="Git hooks for code quality"/>
+      <package name="prettier" version="3.6.2+" purpose="Code formatting"/>
+    </dependency>
+    <dependency ecosystem="Runtime">
+      <framework name="Bun" version="1.3.1+" purpose="Primary runtime for optimal performance"/>
+      <framework name="TypeScript" version="5.9.3+" purpose="Type safety and enhanced development experience"/>
+    </dependency>
+  </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>Use Bun runtime and TypeScript strict mode (already configured)</constraint>
+    <constraint>Follow existing project structure: create src/cli/ and src/exporters/ directories</constraint>
+    <constraint>Reuse existing DocumentScraper class and configuration system from Story 1.1</constraint>
+    <constraint>Apply Test ID Conventions (TC-XXX-001 format) and Priority Classification (P0-P3) for CLI tests</constraint>
+    <constraint>Use existing test infrastructure: FixtureManager, test isolation patterns, Bun test runner</constraint>
+    <constraint>Follow ESLint configuration already established in project</constraint>
+    <constraint>Maintain async/await patterns throughout CLI operations</constraint>
+    <constraint>Support both YAML and JSON configuration formats (already implemented)</constraint>
+    <constraint>Create executable at bin/docs-scrape with proper shebang and permissions</constraint>
+    <constraint>Ensure CLI passes all existing quality gates (ESLint, Stryker, test coverage)</constraint>
+  </constraints>
+  <interfaces>
+    <interface name="DocumentScraper.fromConfigFile" kind="class method" signature="static fromConfigFile(configPath: string): DocumentScraper" path="src/core/scraper.ts"/>
+    <interface name="DocumentScraper.scrape" kind="class method" signature="async scrape(): Promise<ScrapingResult>" path="src/core/scraper.ts"/>
+    <interface name="ConfigManager.loadFromFile" kind="class method" signature="static loadFromFile(configPath: string): ScrapingConfig" path="src/core/config.ts"/>
+    <interface name="ConfigManager.validate" kind="class method" signature="static validate(config: ScrapingConfig): ConfigValidationResult" path="src/core/config.ts"/>
+    <interface name="Logger.getInstance" kind="class method" signature="static getInstance(config?: Partial<LoggerConfig>): Logger" path="src/core/logger.ts"/>
+    <interface name="CLI Command Structure" kind="CLI pattern" signature="docs-scrape scrape --url=&lt;url&gt; --output=&lt;file&gt; --format=&lt;json|csv&gt;" path="docs/tech-spec.md"/>
+  </interfaces>
+  <tests>
+    <standards>Use Bun test runner with Test ID Conventions (TC-CLI-001 format) and Priority Classification (P0-P3 markers). Follow BDD Given-When-Then structure. Apply FixtureManager for resource cleanup and test isolation. Maintain parallel-safe tests with data factories. Ensure 90%+ code coverage and mutation testing with Stryker.</standards>
+    <locations>
+      <location path="tests/unit/cli/" type="unit">CLI command parsing and validation tests</location>
+      <location path="tests/unit/exporters/" type="unit">Export functionality tests (JSON, CSV, database)</location>
+      <location path="tests/integration/" type="integration">End-to-end CLI workflow tests</location>
+      <location path="tests/factories/" type="fixtures">Test data factories for CLI scenarios</location>
+      <location path="tests/helpers/" type="utilities">Test isolation and fixture management</location>
+    </locations>
+    <ideas>
+      <idea ac="1" priority="P0">Test CLI scrape command with URL parameter and output options</idea>
+      <idea ac="1" priority="P1">Test CLI command parsing with invalid arguments and error handling</idea>
+      <idea ac="2" priority="P0">Test configuration file loading for YAML and JSON formats</idea>
+      <idea ac="2" priority="P1">Test configuration validation with missing required fields</idea>
+      <idea ac="3" priority="P0">Test JSON export functionality with various data structures</idea>
+      <idea ac="3" priority="P1">Test JSON export with nested objects and arrays</idea>
+      <idea ac="4" priority="P0">Test CSV export with proper headers and data formatting</idea>
+      <idea ac="4" priority="P1">Test CSV export with special characters and escaping</idea>
+      <idea ac="5" priority="P1">Test CLI error messages for network failures and parsing errors</idea>
+      <idea ac="5" priority="P2">Test CLI progress indicators and status updates</idea>
+      <idea ac="6" priority="P0">Test CLI command structure following existing patterns</idea>
+      <idea ac="6" priority="P1">Test CLI integration with existing DocumentScraper class</idea>
+      <idea ac="6" priority="P2">Test CLI executable creation and permissions</idea>
+    </ideas>
+  </tests>
+</story-context>

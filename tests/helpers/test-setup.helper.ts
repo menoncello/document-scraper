@@ -122,7 +122,7 @@ export const TestData = {
   // HTML Parser scenarios
   htmlParser: {
     givenValidHtml: () => TestScenarios.html.basic(),
-    givenArticleList: (count?: number) => TestScenarios.html.articles(count || 3),
+    givenArticleList: (count?: number) => TestScenarios.html.articleList(count || 3),
     givenArticles: (count: number) => TestScenarios.html.articles(count),
     givenNested: () => TestScenarios.html.nested(),
     givenNestedStructure: () => TestScenarios.html.nested(),
